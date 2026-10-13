@@ -452,6 +452,34 @@ img {
   font-weight: 700;
 }
 
+.cart-badge.cart-item-added {
+  animation: cart-badge-pop 550ms ease-out;
+}
+
+.cart-trigger.cart-item-added .bi-cart-fill {
+  animation: cart-icon-bounce 550ms ease-out;
+}
+
+@keyframes cart-badge-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.55); box-shadow: 0 0 0 0.35rem rgba(216, 158, 45, 0.24); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); box-shadow: none; }
+}
+
+@keyframes cart-icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-5px) rotate(-12deg); }
+  70% { transform: translateY(1px) rotate(8deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-badge.cart-item-added,
+  .cart-trigger.cart-item-added .bi-cart-fill {
+    animation: none;
+  }
+}
+
 .theme-toggle,
 .cart-trigger {
   background: transparent;
@@ -693,16 +721,17 @@ img {
 }
 
 .thumbnail-strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
   gap: 0.45rem;
   padding: 0.7rem 0.7rem 0.9rem;
+  overflow-x: auto;
   background: var(--thumbnail-strip-bg);
   margin-top: -0.1rem;
 }
 
 .thumbnail-item {
   display: block;
+  flex: 0 0 56px;
   height: 56px;
   width: 100%;
   border-radius: 0.6rem;
@@ -1028,6 +1057,7 @@ img {
   position: relative;
   width: min(980px, 92vw);
   max-height: 90vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -1079,13 +1109,13 @@ img {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.75rem;
-  min-height: min(72vh, 700px);
+  min-height: min(56vh, 560px);
 }
 
 .viewer-image {
   display: block;
   width: 100%;
-  max-height: 72vh;
+  max-height: 56vh;
   object-fit: contain;
   border-radius: 0.9rem;
   background: #090b0d;
@@ -1120,6 +1150,35 @@ img {
 .viewer-thumb.active {
   border-color: var(--gold);
   opacity: 1;
+}
+
+.viewer-options {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.viewer-variation-field {
+  display: block;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.viewer-variation {
+  margin-top: 0.45rem;
+  border-color: var(--card-border);
+  background-color: var(--bg-panel);
+  color: var(--text);
+}
+
+.viewer-add {
+  width: 100%;
+}
+
+.viewer-feedback {
+  min-height: 1.3rem;
+  margin: 0;
+  color: var(--gold-strong);
+  font-size: 0.85rem;
 }
 
 .contact-page {
@@ -1478,8 +1537,78 @@ footer {
   }
 }
 
+@media (max-width: 991.98px) {
+  .main-nav > .container-fluid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 0.5rem;
+  }
+
+  .main-nav .navbar-toggler {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  .main-nav .navbar-brand {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  .main-nav .navbar-collapse {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .main-nav .navbar-collapse .navbar-nav {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .main-nav .nav-actions {
+    grid-column: 3;
+    grid-row: 1;
+    flex-direction: row;
+    gap: 0.25rem;
+    margin: 0 !important;
+  }
+
+  .main-nav .nav-actions .theme-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    margin-top: 0.5rem;
+  }
+}
+
 @media (max-width: 767px) {
   .theme-toggle .theme-label {
+    display: none;
+  }
+
+  .main-nav > .container-fluid {
+    padding-inline: 0.65rem;
+    column-gap: 0.3rem;
+  }
+
+  .main-nav .navbar-brand {
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  .main-nav .navbar-toggler {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .main-nav .nav-actions .theme-toggle,
+  .main-nav .nav-actions .cart-trigger {
+    padding: 0.4rem 0.55rem;
+  }
+
+  .main-nav .cart-trigger-label {
     display: none;
   }
 
@@ -1516,6 +1645,7 @@ footer {
   }
 
   .thumbnail-item {
+    flex-basis: 48px;
     height: 48px;
     border-radius: 0.5rem;
   }
@@ -1557,6 +1687,10 @@ footer {
   .viewer-stage {
     min-height: auto;
     grid-template-columns: 1fr;
+  }
+
+  .viewer-image {
+    max-height: 48vh;
   }
 
   .viewer-nav {

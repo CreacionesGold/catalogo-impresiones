@@ -33,7 +33,7 @@
         let images = getImages(product);
         let currentImage = 0;
         let selectedVariation = variations[0];
-        let selectedColor = null;
+        let selectedColor = colors.length === 1 ? colors[0] : null;
 
         detailContainer.textContent = '';
 
@@ -119,10 +119,10 @@
 
         const allColorsButton = document.createElement('button');
         allColorsButton.type = 'button';
-        allColorsButton.className = 'product-color-clear active';
+        allColorsButton.className = `product-color-clear${selectedColor ? '' : ' active'}`;
         allColorsButton.textContent = 'Todos';
         allColorsButton.setAttribute('aria-label', 'Mostrar todos los colores');
-        allColorsButton.setAttribute('aria-pressed', 'true');
+        allColorsButton.setAttribute('aria-pressed', String(!selectedColor));
         allColorsButton.title = 'Mostrar todos los colores';
         allColorsButton.addEventListener('click', () => {
             selectedColor = null;
@@ -142,8 +142,11 @@
             colorButton.className = 'product-color-option';
             colorButton.style.setProperty('--swatch-color', color.hex);
             colorButton.setAttribute('aria-label', `Color ${color.nombre}`);
-            colorButton.setAttribute('aria-pressed', 'false');
+            colorButton.setAttribute('aria-pressed', String(selectedColor?.id === color.id));
             colorButton.title = color.nombre;
+            if (selectedColor?.id === color.id) {
+                colorButton.classList.add('active');
+            }
             colorButton.addEventListener('click', () => {
                 selectedColor = color;
                 colorField.classList.remove('product-detail-field-invalid');

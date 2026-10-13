@@ -37,6 +37,33 @@ function getProductColors(product) {
     return Array.isArray(product.colores) ? product.colores : [];
 }
 
+function getProductImages(product) {
+    return Array.isArray(product.images) && product.images.length
+        ? product.images
+        : [product.imagen].filter(Boolean);
+}
+
+function getProductGalleryImages(product) {
+    return [...new Set([
+        ...getProductImages(product),
+        ...getProductColors(product).flatMap((color) => Array.isArray(color.images) ? color.images : [])
+    ])];
+}
+
+function getColorImages(product, color) {
+    return color && Array.isArray(color.images) && color.images.length
+        ? color.images
+        : getProductImages(product);
+}
+
+function getImageColor(product, imageSource) {
+    const matchingColor = getProductColors(product).find((color) =>
+        Array.isArray(color.images) && color.images.includes(imageSource)
+    );
+
+    return matchingColor || (getProductColors(product).length === 1 ? getProductColors(product)[0] : undefined);
+}
+
 function normalizeCartItem(item) {
     if (typeof item === 'object' && item !== null) {
         return {
@@ -161,11 +188,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterToggle = document.querySelector('.filter-toggle');
     const filterList = document.querySelector('#filterList');
     const miLocalStorage = window.localStorage;
+    let cartAdditionAnimationTimeout;
+
+    function animateCartAddition() {
+        const cartTrigger = document.querySelector('#cartToggleBtn');
+        const animatedElements = [DOMItems, cartTrigger].filter(Boolean);
+
+        animatedElements.forEach((element) => {
+            element.classList.remove('cart-item-added');
+            void element.offsetWidth;
+            element.classList.add('cart-item-added');
+        });
+
+        window.clearTimeout(cartAdditionAnimationTimeout);
+        cartAdditionAnimationTimeout = window.setTimeout(() => {
+            animatedElements.forEach((element) => element.classList.remove('cart-item-added'));
+        }, 650);
+    }
 
     window.addProductToCart = function (productoId, variacionId = 'estandar', colorId = '') {
         carrito.push({ productoId: Number(productoId), variacionId, colorId });
         renderizarCarrito();
         guardarCarritoEnLocalStorage();
+        animateCartAddition();
     };
 
     function syncFilterPanelState() {
@@ -312,6 +357,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button type="button" class="viewer-nav viewer-next" aria-label="Siguiente imagen">›</button>
                 </div>
                 <div class="viewer-thumbs"></div>
+                <div class="viewer-options">
+                    <label class="viewer-variation-field">
+                        Tamaño o variación
+                        <select class="form-select viewer-variation"></select>
+                    </label>
+                    <button type="button" class="btn btn-gold viewer-add">Añadir a mi selección</button>
+                    <p class="viewer-feedback" aria-live="polite"></p>
+                </div>
             </div>
         `;
 
@@ -347,7 +400,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (event.key === 'Tab') {
-                const focusable = Array.from(viewer.querySelectorAll('button:not(:disabled)'));
+                const focusable = Array.from(viewer.querySelectorAll('button:not(:disabled), select:not(:disabled)'))
+                    .filter((element) => element.getClientRects().length > 0);
                 const first = focusable[0];
                 const last = focusable[focusable.length - 1];
                 if (event.shiftKey && document.activeElement === first) {
@@ -363,20 +417,30 @@ document.addEventListener('DOMContentLoaded', () => {
         return viewer;
     }
 
-    function openImageViewer(productImages, productName, initialIndex = 0) {
-        const images = Array.isArray(productImages) && productImages.length ? productImages : [productImages];
+    function openImageViewer(product, productImages, initialIndex = 0, variationId = '') {
+        const images = Array.isArray(productImages) && productImages.length ? productImages : getProductImages(product);
         const viewer = ensureImageViewer();
         const image = viewer.querySelector('.viewer-image');
         const thumbContainer = viewer.querySelector('.viewer-thumbs');
         const prevButton = viewer.querySelector('.viewer-prev');
         const nextButton = viewer.querySelector('.viewer-next');
+        const variationSelect = viewer.querySelector('.viewer-variation');
+        const variationField = viewer.querySelector('.viewer-variation-field');
+        const addButton = viewer.querySelector('.viewer-add');
+        const feedback = viewer.querySelector('.viewer-feedback');
+        const variations = getProductVariations(product);
+        const colors = getProductColors(product);
+        let selectedVariationId = variations.some((variation) => variation.id === variationId)
+            ? variationId
+            : variations[0].id;
         imageViewerTrigger = document.activeElement;
+        viewer.querySelector('.viewer-panel').setAttribute('aria-label', `Vista ampliada de ${product.nombre}`);
 
         let currentIndex = Math.min(initialIndex, images.length - 1);
 
         const applyState = () => {
             image.src = images[currentIndex];
-            image.alt = `${productName} vista ${currentIndex + 1}`;
+            image.alt = `${product.nombre} vista ${currentIndex + 1}`;
 
             Array.from(thumbContainer.children).forEach((thumb, index) => {
                 thumb.classList.toggle('active', index === currentIndex);
@@ -387,26 +451,62 @@ document.addEventListener('DOMContentLoaded', () => {
             nextButton.disabled = images.length <= 1;
         };
 
-        thumbContainer.textContent = '';
-        images.forEach((imgSrc, index) => {
-            const thumb = document.createElement('button');
-            thumb.type = 'button';
-            thumb.classList.add('viewer-thumb');
-            thumb.setAttribute('aria-label', `${productName}, vista ${index + 1}`);
-            thumb.setAttribute('aria-pressed', String(index === currentIndex));
-            const thumbImage = document.createElement('img');
-            thumbImage.src = imgSrc;
-            thumbImage.alt = '';
-            thumb.appendChild(thumbImage);
-            if (index === currentIndex) {
-                thumb.classList.add('active');
-            }
-            thumb.addEventListener('click', () => {
-                currentIndex = index;
-                applyState();
+        const renderThumbnails = () => {
+            thumbContainer.textContent = '';
+            images.forEach((imgSrc, index) => {
+                const thumb = document.createElement('button');
+                thumb.type = 'button';
+                thumb.classList.add('viewer-thumb');
+                thumb.setAttribute('aria-label', `${product.nombre}, vista ${index + 1}`);
+                thumb.setAttribute('aria-pressed', String(index === currentIndex));
+                const thumbImage = document.createElement('img');
+                thumbImage.src = imgSrc;
+                thumbImage.alt = '';
+                thumb.appendChild(thumbImage);
+                if (index === currentIndex) {
+                    thumb.classList.add('active');
+                }
+                thumb.addEventListener('click', () => {
+                    currentIndex = index;
+                    applyState();
+                });
+                thumbContainer.appendChild(thumb);
             });
-            thumbContainer.appendChild(thumb);
+        };
+
+        variationSelect.textContent = '';
+        variations.forEach((variation) => {
+            const option = document.createElement('option');
+            option.value = variation.id;
+            option.textContent = `${variation.nombre} - COP $${Number(variation.precio).toLocaleString('es-CO')}`;
+            option.selected = variation.id === selectedVariationId;
+            variationSelect.appendChild(option);
         });
+        variationField.hidden = variations.length <= 1;
+        variationSelect.onchange = () => {
+            selectedVariationId = variationSelect.value;
+        };
+
+        feedback.textContent = '';
+        addButton.textContent = 'Añadir a mi selección';
+        addButton.onclick = () => {
+            const selectedColor = getImageColor(product, images[currentIndex]);
+            if (colors.length > 1 && !selectedColor) {
+                feedback.textContent = 'Elige una imagen que muestre el color que deseas añadir.';
+                return;
+            }
+
+            if (typeof window.addProductToCart !== 'function') {
+                feedback.textContent = 'No fue posible añadir el producto. Intenta nuevamente.';
+                console.error('La función para añadir productos a la selección no está disponible.');
+                return;
+            }
+
+            window.addProductToCart(product.id, selectedVariationId, selectedColor?.id || '');
+            viewer.querySelector('.viewer-close').click();
+        };
+
+        renderThumbnails();
 
         prevButton.onclick = () => {
             currentIndex = currentIndex <= 0 ? images.length - 1 : currentIndex - 1;
@@ -463,12 +563,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const productMedia = document.createElement('div');
             productMedia.classList.add('product-media');
 
-            const images = Array.isArray(info.images) && info.images.length ? info.images : [info.imagen];
-            let cardImages = images;
+            const cardImages = getProductGalleryImages(info);
             let activeCardImageIndex = 0;
             const miNodoImagen = document.createElement('img');
             miNodoImagen.classList.add('card-img-top');
-            miNodoImagen.setAttribute('src', images[0]);
+            miNodoImagen.setAttribute('src', cardImages[0]);
             miNodoImagen.setAttribute('alt', info.nombre);
             miNodoImagen.loading = 'lazy';
 
@@ -481,43 +580,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const miniaturas = document.createElement('div');
             miniaturas.classList.add('thumbnail-strip');
 
-            const cambiarImagenActiva = (imgSrc, thumb) => {
+            const cambiarImagenActiva = (imgSrc) => {
                 miNodoImagen.src = imgSrc;
                 miNodoImagen.alt = `${info.nombre}, vista ${cardImages.indexOf(imgSrc) + 1}`;
                 activeCardImageIndex = cardImages.indexOf(imgSrc);
                 Array.from(miniaturas.children).forEach((item) => {
-                    item.classList.remove('active');
-                    item.setAttribute('aria-pressed', 'false');
+                    const isActive = Number(item.dataset.imageIndex) === activeCardImageIndex;
+                    item.classList.toggle('active', isActive);
+                    item.setAttribute('aria-pressed', String(isActive));
                 });
-                thumb.classList.add('active');
-                thumb.setAttribute('aria-pressed', 'true');
             };
 
             const renderizarMiniaturas = () => {
                 miniaturas.textContent = '';
-                activeCardImageIndex = 0;
-                miNodoImagen.alt = `${info.nombre}, vista 1`;
-                cardImages.slice(0, 3).forEach((imgSrc, index) => {
-                const thumb = document.createElement('button');
-                thumb.type = 'button';
-                thumb.classList.add('thumbnail-item');
-                if (index === 0) {
-                    thumb.classList.add('active');
-                }
-                thumb.setAttribute('aria-label', `${info.nombre}, vista ${index + 1}`);
-                thumb.setAttribute('aria-pressed', String(index === 0));
-                thumb.addEventListener('click', () => cambiarImagenActiva(imgSrc, thumb));
-                const thumbImage = document.createElement('img');
-                thumbImage.src = imgSrc;
-                thumbImage.alt = '';
-                thumb.appendChild(thumbImage);
-                miniaturas.appendChild(thumb);
+                cardImages.forEach((imgSrc, index) => {
+                    const thumb = document.createElement('button');
+                    thumb.type = 'button';
+                    thumb.classList.add('thumbnail-item');
+                    thumb.dataset.imageIndex = String(index);
+                    thumb.classList.toggle('active', index === activeCardImageIndex);
+                    thumb.setAttribute('aria-label', `${info.nombre}, vista ${index + 1}`);
+                    thumb.setAttribute('aria-pressed', String(index === activeCardImageIndex));
+                    thumb.addEventListener('click', () => cambiarImagenActiva(imgSrc));
+                    const thumbImage = document.createElement('img');
+                    thumbImage.src = imgSrc;
+                    thumbImage.alt = '';
+                    thumb.appendChild(thumbImage);
+                    miniaturas.appendChild(thumb);
                 });
             };
 
             renderizarMiniaturas();
 
-            viewButton.addEventListener('click', () => openImageViewer(cardImages, info.nombre, activeCardImageIndex));
+            viewButton.addEventListener('click', () => openImageViewer(
+                info,
+                cardImages,
+                activeCardImageIndex,
+                variationSelect.value
+            ));
 
             productMedia.appendChild(miNodoImagen);
             productMedia.appendChild(viewButton);
@@ -551,14 +651,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const colorSelect = document.createElement('select');
             colorSelect.classList.add('form-select', 'product-option-select');
             colorSelect.setAttribute('aria-label', `Seleccionar color de ${info.nombre}`);
-            if (getProductColors(info).length) {
-                const allColorsOption = document.createElement('option');
-                allColorsOption.value = '';
-                allColorsOption.textContent = 'Todos los colores';
-                allColorsOption.selected = true;
-                colorSelect.appendChild(allColorsOption);
+            const colors = getProductColors(info);
+            if (colors.length) {
+                if (colors.length > 1) {
+                    const allColorsOption = document.createElement('option');
+                    allColorsOption.value = '';
+                    allColorsOption.textContent = 'Todos los colores';
+                    allColorsOption.selected = true;
+                    colorSelect.appendChild(allColorsOption);
+                }
 
-                getProductColors(info).forEach((color) => {
+                colors.forEach((color) => {
                     const option = document.createElement('option');
                     option.value = color.id;
                     option.textContent = `Color ${color.nombre}`;
@@ -592,11 +695,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 miNodoBoton.dataset.color = colorSelect.value;
                 colorSelect.setCustomValidity('');
                 const selectedColor = getColor(info, colorSelect.value);
-                cardImages = selectedColor && Array.isArray(selectedColor.images) && selectedColor.images.length
-                    ? selectedColor.images
-                    : images;
-                miNodoImagen.src = cardImages[0];
-                renderizarMiniaturas();
+                if (selectedColor) {
+                    cambiarImagenActiva(getColorImages(info, selectedColor)[0]);
+                }
             });
             miNodoBoton.addEventListener('click', (event) => {
                 if (getProductColors(info).length && !colorSelect.value) {
