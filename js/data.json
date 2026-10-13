@@ -254,7 +254,7 @@
         "variaciones": [
             {
                 "id": "estandar",
-                "nombre": "Estandar 5 espacios",
+                "nombre": "Estándar 5 espacios",
                 "precio": 10000
             }
         ],
@@ -361,7 +361,7 @@
         "variaciones": [
             {
                 "id": "estandar",
-                "nombre": "Estándar",
+                "nombre": "Maceta hasta 7 cm",
                 "precio": 30000
             }
         ],
@@ -412,6 +412,81 @@
             "images/maceta_tortuga_nino_2_bronce.jpeg",
             "images/maceta_tortuga_nino_blanco.jpeg",
             "images/maceta_tortuga_nino_2_blanco.jpeg"
+        ]
+    },
+    {
+        "id": 10,
+        "nombre": "Maceta perrito tierno",
+        "categoria": "Macetas",
+        "precio": 20000,
+        "descripcion": "Maceta para suculentas con diseño de perrito tierno, ideal para decoración de interiores.",
+        "material": "PLA + textura realista",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Maceta hasta 6.4 cm",
+                "precio": 20000
+            }
+        ],
+        "colores": [
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea"
+            }
+        ],
+        "images": [
+            "images/maceta_perro_1.jpeg"
+        ]
+    },
+    {
+        "id": 11,
+        "nombre": "Maceta Elefante",
+        "categoria": "Macetas",
+        "precio": 30000,
+        "descripcion": "Maceta para suculentas con diseño de elefante, ideal para decoración de interiores.",
+        "material": "PLA + textura realista",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Maceta hasta 5.8 cm",
+                "precio": 30000
+            }
+        ],
+        "colores": [
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea"
+            }
+        ],
+        "images": [
+            "images/maceta_elefante.jpeg"
+        ]
+    },
+    {
+        "id": 12,
+        "nombre": "Soporte para celular Gato Despertando",
+        "categoria": "Soporte celular",
+        "precio": 20000,
+        "descripcion": "Soporte para celular con diseño de gato despertando, ideal para organización de espacios.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Estándar",
+                "precio": 20000
+            }
+        ],
+        "colores": [
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124"
+            }
+        ],
+        "images": [
+            "images/sop_celular_gato_1.jpeg"
         ]
     }
 ]
