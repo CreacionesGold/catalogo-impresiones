@@ -1,0 +1,417 @@
+[
+    {
+        "id": 1,
+        "nombre": "Soporte para celular Samoyedo",
+        "categoria": "Soporte celular",
+        "precio": 40000,
+        "descripcion": "Soporte para poner tu celular en posición vertical con diseño de perro samoyedo, ideal para escritorio o mesita de noche.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Estándar",
+                "precio": 40000
+            }
+        ],
+        "colores": [
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea"
+            }
+        ],
+        "images": [
+            "images/sop_celular_samoyedo_1.jpeg"
+        ]
+    },
+    {
+        "id": 2,
+        "nombre": "Maceta gato dormido",
+        "categoria": "Macetas",
+        "precio": 30000,
+        "descripcion": "Maceta para suculentas con diseño de gato dormido, ideal para decoración de interiores.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Maceta hasta 5.5 cm",
+                "precio": 30000
+            }
+        ],
+        "colores": [
+            {
+                "id": "hoja-primaveral",
+                "nombre": "Hoja Primaveral",
+                "hex": "#89A84F",
+                "images": [
+                    "images/maceta_gato_dormido_verde.png"
+                ]
+            },
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124",
+                "images": [
+                    "images/maceta_gato_dormido_negro.png"
+                ]
+            },
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea",
+                "images": [
+                    "images/maceta_gato_dormido_blanco.jpeg"
+                ]
+            },
+            {
+                "id": "bronce",
+                "nombre": "Bronce",
+                "hex": "#7C4D3A",
+                "images": [
+                    "images/maceta_gato_dormido_bronce.png"
+                ]
+            }
+        ],
+        "images": [
+            "images/maceta_gato_dormido_blanco.jpeg",
+            "images/maceta_gato_dormido_negro.png",
+            "images/maceta_gato_dormido_bronce.png",
+            "images/maceta_gato_dormido_verde.png"
+        ]
+    },
+    {
+        "id": 3,
+        "nombre": "Maceta gato tierno",
+        "categoria": "Macetas",
+        "precio": 15000,
+        "descripcion": "Maceta para suculentas con diseño de gato tierno, ideal para decoración de interiores.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Maceta hasta 4.8 cm",
+                "precio": 15000
+            }
+        ],
+        "colores": [
+            {
+                "id": "hoja-primaveral",
+                "nombre": "Hoja Primaveral",
+                "hex": "#89A84F",
+                "images": [
+                    "images/maceta_gato_tierno_verde.jpeg"
+                ]
+            },
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124",
+                "images": [
+                    "images/maceta_gato_tierno_negro.jpeg"
+                ]
+            },
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea",
+                "images": [
+                    "images/maceta_gato_tierno_blanco.jpeg"
+                ]
+            },
+            {
+                "id": "bronce",
+                "nombre": "Bronce",
+                "hex": "#7C4D3A",
+                "images": [
+                    "images/maceta_gato_tierno_bronce.jpeg"
+                ]
+            }
+        ],
+        "images": [
+            "images/maceta_gato_tierno_negro.jpeg",
+            "images/maceta_gato_tierno_blanco.jpeg",
+            "images/maceta_gato_tierno_bronce.jpeg",
+            "images/maceta_gato_tierno_verde.jpeg"
+        ]
+    },
+    {
+        "id": 4,
+        "nombre": "Portalapices minimalista",
+        "categoria": "Minimalista",
+        "precio": 20000,
+        "descripcion": "Portalapiceros con diseño minimalista y elegante, ideal para escritorios modernos.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Estándar",
+                "precio": 20000
+            }
+        ],
+        "colores": [
+            {
+                "id": "hoja-primaveral",
+                "nombre": "Hoja Primaveral",
+                "hex": "#89A84F",
+                "images": [
+                    "images/porta_lapices_verde.png"
+                ]
+            },
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124",
+                "images": [
+                    "images/porta_lapices_negro.png"
+                ]
+            },
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea",
+                "images": [
+                    "images/porta_lapices_blanco.png"
+                ]
+            },
+            {
+                "id": "bronce",
+                "nombre": "Bronce",
+                "hex": "#7C4D3A",
+                "images": [
+                    "images/porta_lapices_bronce.png"
+                ]
+            }
+        ],
+        "images": [
+            "images/porta_lapices_negro.png",
+            "images/porta_lapices_blanco.png",
+            "images/porta_lapices_bronce.png",
+            "images/porta_lapices_verde.png"
+        ]
+    },
+    {
+        "id": 5,
+        "nombre": "Organizador para mesa de noche",
+        "categoria": "Minimalista",
+        "precio": 28000,
+        "descripcion": "Organizador multifuncional para mesa de noche, con compartimentos para objetos pequeños y diseño elegante.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Estándar",
+                "precio": 28000
+            }
+        ],
+        "colores": [
+            {
+                "id": "hoja-primaveral",
+                "nombre": "Hoja Primaveral",
+                "hex": "#89A84F",
+                "images": [
+                    "images/organizador_mesa_noche_verde.png"
+                ]
+            },
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124",
+                "images": [
+                    "images/organizador_mesa_noche_negro.jpeg"
+                ]
+            },
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea",
+                "images": [
+                    "images/organizador_mesa_noche_blanco.png"
+                ]
+            },
+            {
+                "id": "bronce",
+                "nombre": "Bronce",
+                "hex": "#7C4D3A",
+                "images": [
+                    "images/organizador_mesa_noche_bronce.png"
+                ]
+            }
+        ],
+        "images": [
+            "images/organizador_mesa_noche_negro.jpeg",
+            "images/organizador_mesa_noche_blanco.png",
+            "images/organizador_mesa_noche_bronce.png",
+            "images/organizador_mesa_noche_verde.png"
+        ]
+    },
+    {
+        "id": 9,
+        "nombre": "Gancho multiusos para armarios",
+        "categoria": "Minimalista",
+        "precio": 10000,
+        "descripcion": "Gancho multiusos para armarios, ideal para organización de espacios.",
+        "material": "PETG + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Estandar 5 espacios",
+                "precio": 10000
+            }
+        ],
+        "colores": [
+            {
+                "id": "gris",
+                "nombre": "Gris",
+                "hex": "#808080"
+            }
+        ],
+        "images": [
+            "images/gancho2.jpeg",
+            "images/gancho1.jpeg"
+        ]
+    },
+    {
+        "id": 6,
+        "nombre": "Maceta osito",
+        "categoria": "Macetas",
+        "precio": 45000,
+        "descripcion": "Maceta para suculentas con diseño de osito adorable, ideal para decoración de interiores y regalos.",
+        "material": "PLA + detalle realista",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Maceta hasta 6.5 cm",
+                "precio": 45000
+            }
+        ],
+        "colores": [
+            {
+                "id": "hoja-primaveral",
+                "nombre": "Hoja Primaveral",
+                "hex": "#89A84F",
+                "images": [
+                    "images/maceta_osito_verde.png"
+                ]
+            },
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124",
+                "images": [
+                    "images/maceta_osito_negro.png"
+                ]
+            },
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea",
+                "images": [
+                    "images/maceta_osito_blanco.png"
+                ]
+            },
+            {
+                "id": "bronce",
+                "nombre": "Bronce",
+                "hex": "#7C4D3A",
+                "images": [
+                    "images/maceta_osito_bronce.jpeg"
+                ]
+            }
+        ],
+        "images": [
+            "images/maceta_osito_bronce.jpeg",
+            "images/maceta_osito_verde.png",
+            "images/maceta_osito_negro.png",
+            "images/maceta_osito_blanco.png"
+        ]
+    },
+    {
+        "id": 7,
+        "nombre": "Maceta groot pensativo",
+        "categoria": "Macetas",
+        "precio": 75000,
+        "descripcion": "Maceta para suculentas con diseño de groot pensativo, ideal para decoración de interiores.",
+        "material": "PLA + acabado mate",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Grande 19cm de alto",
+                "precio": 75000
+            }
+        ],
+        "colores": [
+            {
+                "id": "dorado",
+                "nombre": "Dorado",
+                "hex": "#d89e2d"
+            }
+        ],
+        "images": [
+            "images/maceta_groot_pensativo.jpeg",
+            "images/maceta_groot_pensativo_2.jpeg"
+        ]
+    },
+    {
+        "id": 8,
+        "nombre": "Maceta tortuga niño",
+        "categoria": "Macetas",
+        "precio": 30000,
+        "descripcion": "Maceta para suculentas con diseño de tortuga niño, ideal para decoración de interiores.",
+        "material": "PLA + textura realista",
+        "variaciones": [
+            {
+                "id": "estandar",
+                "nombre": "Estándar",
+                "precio": 30000
+            }
+        ],
+        "colores": [
+            {
+                "id": "hoja-primaveral",
+                "nombre": "Hoja Primaveral",
+                "hex": "#89A84F",
+                "images": [
+                    "images/maceta_tortuga_nino_verde.jpeg",
+                    "images/maceta_tortuga_nino_2_verde.jpeg"
+                ]
+            },
+            {
+                "id": "negro",
+                "nombre": "Negro",
+                "hex": "#202124",
+                "images": [
+                    "images/maceta_tortuga_nino_negro.jpeg",
+                    "images/maceta_tortuga_nino_2_negro.jpeg"
+                ]
+            },
+            {
+                "id": "blanco",
+                "nombre": "Blanco",
+                "hex": "#f4f1ea",
+                "images": [
+                    "images/maceta_tortuga_nino_blanco.jpeg",
+                    "images/maceta_tortuga_nino_2_blanco.jpeg"
+                ]
+            },
+            {
+                "id": "bronce",
+                "nombre": "Bronce",
+                "hex": "#7C4D3A",
+                "images": [
+                    "images/maceta_tortuga_nino_bronce.jpeg",
+                    "images/maceta_tortuga_nino_2_bronce.jpeg"
+                ]
+            }
+        ],
+        "images": [
+            "images/maceta_tortuga_nino_verde.jpeg",
+            "images/maceta_tortuga_nino_2_verde.jpeg",
+            "images/maceta_tortuga_nino_negro.jpeg",
+            "images/maceta_tortuga_nino_2_negro.jpeg",
+            "images/maceta_tortuga_nino_bronce.jpeg",
+            "images/maceta_tortuga_nino_2_bronce.jpeg",
+            "images/maceta_tortuga_nino_blanco.jpeg",
+            "images/maceta_tortuga_nino_2_blanco.jpeg"
+        ]
+    }
+]

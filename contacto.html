@@ -1,0 +1,142 @@
+---
+layout: default
+permalink: /contacto.html
+---
+
+<section class="contact-page">
+    <div class="container">
+        <div class="contact-hero">
+            <p class="eyebrow">Contacto</p>
+            <h1>Cuéntanos tu idea</h1>
+            <p>Este catálogo es ilustrativo. Consulta por correo la disponibilidad, el precio vigente y las condiciones de cualquier pieza antes de acordar una compra.</p>
+        </div>
+
+        <div class="contact-shell">
+            <aside class="contact-panel">
+                <h2>¿Cómo podemos ayudarte?</h2>
+                <p>Al continuar se abrirá tu aplicación de correo con el mensaje que prepares. El formulario no se envía a un servidor de este sitio; tú decides si envías el correo.</p>
+
+                <div class="contact-info-list">
+                    <div class="contact-info-item">
+                        <i class="bi bi-envelope" aria-hidden="true"></i>
+                        <div>
+                            <strong>Correo electrónico</strong>
+                            <a href="mailto:goldimpresiones3@gmail.com">goldimpresiones3@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="bi bi-envelope" aria-hidden="true"></i>
+                        <div>
+                            <strong>Impresiones GOLD · Bogotá D.C.</strong>
+                            <a href="mailto:goldimpresiones3@gmail.com">goldimpresiones3@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="bi bi-file-earmark-arrow-up" aria-hidden="true"></i>
+                        <div>
+                            <strong>Datos mínimos</strong>
+                            <span>Solo pedimos el tipo de pieza y una descripción de tu consulta. La referencia es opcional.</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="contact-panel" id="presupuesto">
+                <h2>Solicita información sobre una pieza</h2>
+                <form id="contactForm">
+                    <div class="contact-form-grid">
+                        <div class="form-field full">
+                            <label for="asunto">Tipo de pieza</label>
+                            <input id="asunto" name="asunto" type="text" autocomplete="off" placeholder="Ej. Maceta, soporte para celular..." required />
+                        </div>
+
+                        <div class="form-field full">
+                            <label for="descripcion">¿Qué deseas consultar?</label>
+                            <textarea id="descripcion" name="descripcion" placeholder="Describe brevemente la pieza o tu consulta." required></textarea>
+                        </div>
+
+                        <div class="form-field full">
+                            <label for="archivo">Enlace de referencia</label>
+                            <input id="archivo" name="archivo" type="url" placeholder="https://ejemplo.com/referencia-o-imagen" />
+                            <small class="file-hint">Opcional. El enlace se incluirá en el borrador del correo. Para compartir un archivo, adjúntalo tú en tu aplicación de correo.</small>
+                        </div>
+                    </div>
+
+                        <div class="form-consent">
+                            <input id="privacyConsent" name="privacyConsent" type="checkbox" required />
+                            <label for="privacyConsent">
+                                Autorizo a Impresiones GOLD a tratar los datos de esta consulta para responderla y gestionar la solicitud, según la
+                                <a href="/catalogo/privacidad.html">Política de privacidad</a>. Al continuar se abrirá tu aplicación de correo; el mensaje solo se enviará si confirmas el envío allí.
+                            </label>
+                        </div>
+
+                        <div class="contact-actions">
+                        <button type="button" id="sendEmailBtn" class="btn btn-outline-gold">Preparar correo con mi consulta</button>
+                    </div>
+
+                    <div class="contact-preview">
+                        <h3>Vista previa del mensaje</h3>
+                        <p id="previewMessage" class="preview-message" aria-live="polite">Completa los campos para preparar tu consulta.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    (function () {
+        const form = document.getElementById('contactForm');
+        const asunto = document.getElementById('asunto');
+        const descripcion = document.getElementById('descripcion');
+        const archivo = document.getElementById('archivo');
+        const privacyConsent = document.getElementById('privacyConsent');
+        const previewMessage = document.getElementById('previewMessage');
+
+        function buildContactMessage() {
+            const asuntoTexto = asunto.value.trim() || 'No especificado';
+            const descripcionTexto = descripcion.value.trim() || 'No se agregó una descripción todavía.';
+            const archivoTexto = archivo.value.trim();
+
+            const fields = [
+                'Hola, quiero consultar sobre una pieza del catálogo.',
+                '',
+                `Tipo de pieza: ${asuntoTexto}`,
+                `Consulta: ${descripcionTexto}`,
+                ...(archivoTexto ? [`Referencia: ${archivoTexto}`] : []),
+                ...(privacyConsent.checked ? [
+                    '',
+                    'Autorizo el tratamiento de los datos incluidos en esta consulta para recibir respuesta y gestionar mi solicitud, según la Política de privacidad.'
+                ] : []),
+                '',
+                'Quiero confirmar disponibilidad, precio vigente y condiciones antes de acordar la compra.'
+            ];
+
+            return fields.join('\n');
+        }
+
+        function updatePreview() {
+            previewMessage.textContent = buildContactMessage();
+        }
+
+        function openEmail() {
+            const message = buildContactMessage();
+            const subject = 'Consulta sobre una pieza del catálogo';
+            const url = `mailto:goldimpresiones3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            window.location.href = url;
+        }
+
+        ['input', 'change'].forEach((eventName) => {
+            form.addEventListener(eventName, updatePreview);
+        });
+
+        document.getElementById('sendEmailBtn').addEventListener('click', () => {
+            if (!form.reportValidity()) {
+                return;
+            }
+            openEmail();
+        });
+
+        updatePreview();
+    })();
+</script>

@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg main-nav" aria-label="Navegación principal">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/catalogo/"><span class="brand-light">Impresiones GOLD</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url == '/' or page.url == '/producto.html' %} active{% endif %}" href="/catalogo/"{% if page.url == '/' or page.url == '/producto.html' %} aria-current="page"{% endif %}>Catálogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url == '/contacto.html' %} active{% endif %}" href="/catalogo/contacto.html"{% if page.url == '/contacto.html' %} aria-current="page"{% endif %}>Contáctanos</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav ms-auto nav-actions">
+            <li class="nav-item dropdown theme-dropdown">
+                <button class="nav-link dropdown-toggle theme-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" aria-label="Cambiar tema">
+                    <i class="bi bi-circle-half" aria-hidden="true"></i>
+                    <span class="theme-label">Tema</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end theme-menu">
+                    <li><button type="button" class="dropdown-item theme-option" data-theme="system">Sistema</button></li>
+                    <li><button type="button" class="dropdown-item theme-option" data-theme="dark">Oscuro</button></li>
+                    <li><button type="button" class="dropdown-item theme-option" data-theme="light">Claro</button></li>
+                </ul>
+            </li>
+            <li class="nav-item cart-item">
+                <button type="button" class="nav-link cart-trigger" id="cartToggleBtn" aria-expanded="false" aria-controls="carrito" aria-label="Abrir mi selección" onclick="window.toggleCartDrawer && window.toggleCartDrawer(); return false;">
+                    <i class="color-gold bi-cart-fill me-1" aria-hidden="true"></i>
+                    Mi selección
+                    <span id="num-items" class="badge cart-badge ms-1 rounded-pill" aria-live="polite">0</span>
+                </button>
+                <div class="cart-backdrop" id="cartBackdrop" hidden onclick="window.closeCartDrawer && window.closeCartDrawer(); return false;"></div>
+                <aside id="carrito" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Mi selección" aria-hidden="true" inert>
+                    <div class="cart-header">
+                        <h2>Mi selección</h2>
+                        <button type="button" class="cart-close" id="cartCloseBtn" aria-label="Cerrar mi selección" onclick="window.closeCartDrawer && window.closeCartDrawer(); return false;">
+                            <span aria-hidden="true">×</span>
+                            <span>Cerrar</span>
+                        </button>
+                    </div>
+                    <div class="cart-content" id="cartContent"></div>
+                </aside>
+            </li>
+        </ul>
+    </div>
+</nav>

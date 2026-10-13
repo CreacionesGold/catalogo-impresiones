@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<header class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <p class="eyebrow">Portafolio • Impresiones • Decoración</p>
+            <h1>Catálogo de Piezas</h1>
+            <p class="lead">Colección de piezas para decorar espacios, regalar momentos y mostrar tu estilo.</p>
+            <div class="hero-actions">
+                <a href="#catalogo" class="btn btn-primary btn-gold">Ver catálogo</a>
+                <a id="heroBudgetButton" href="/catalogo/contacto.html#presupuesto" class="btn btn-outline-light">Solicitar presupuesto personalizado</a>
+            </div>
+            </div>
+            <div class="hero-stats">
+                <span>Decora tu espacio</span>
+                <span>Personalizados</span>
+                <span>Consulta por correo</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="catalogo" class="catalog-section">
+    <div class="container px-4 px-lg-5">
+        <div class="section-heading text-center">
+            <p class="eyebrow eyebrow-dark">Colección destacada</p>
+            <h2>Impresiones que cuentan una historia</h2>
+            <p class="catalog-price-note">Precios por producto en COP. Consulta por correo la disponibilidad y el valor total de tu solicitud.</p>
+        </div>
+
+        <div class="catalog-layout">
+            <aside class="catalog-sidebar">
+                <div class="filter-header">
+                    <h3>Filtrar</h3>
+                    <button class="filter-toggle" type="button" aria-expanded="true" aria-controls="filterList">
+                        <span class="filter-toggle-text">Ocultar filtros</span>
+                    </button>
+                </div>
+                <div id="filterList" class="filter-list" role="group" aria-label="Filtros de categoría"></div>
+            </aside>
+
+            <div class="catalog-content">
+                <p id="catalogStatus" class="visually-hidden" aria-live="polite"></p>
+                <div id="items" class="row gx-4 gx-lg-5 justify-content-center catalog-grid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
