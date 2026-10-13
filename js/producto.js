@@ -212,7 +212,7 @@
         detailContainer.appendChild(shell);
     }
 
-    fetch('/catalogo/js/data.json')
+    fetch('/catalogo-impresiones/js/data.json')
         .then((response) => {
             if (!response.ok) {
                 throw new Error('No se pudo cargar el catálogo');

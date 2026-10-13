@@ -21,7 +21,7 @@
 title: Impresiones GOLD - Catálogo
 description: >- # this means to ignore newlines until "baseurl:"
   Catálogo de productos de Impresiones GOLD
-baseurl: "/catalogo" # la ruta base del sitio en local y en GitHub Pages
+baseurl: "/catalogo-impresiones" # la ruta base del sitio en local y en GitHub Pages
 url: "http://127.0.0.1:4000" # dominio local de desarrollo
 twitter_username: jekyllrb
 github_username:  jekyll

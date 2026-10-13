@@ -1,7 +1,7 @@
 // Variables
 function fetchJSONData() {
     const request = new XMLHttpRequest();
-    request.open("GET", "/catalogo/js/data.json", false);
+    request.open("GET", "/catalogo-impresiones/js/data.json", false);
     request.send(null);
     if (request.status === 200) {
       return JSON.parse(request.responseText);
@@ -618,7 +618,7 @@ document.addEventListener('DOMContentLoaded', () => {
             miNodoCardBody.appendChild(colorSelect);
             miNodoCardBody.appendChild(miNodoPrecio);
             const detailLink = document.createElement('a');
-            detailLink.href = `/catalogo/producto.html?id=${encodeURIComponent(info.id)}`;
+            detailLink.href = `/catalogo-impresiones/producto.html?id=${encodeURIComponent(info.id)}`;
             detailLink.classList.add('product-detail-link');
             detailLink.textContent = 'Ver detalle completo';
             miNodoCardBody.appendChild(detailLink);
